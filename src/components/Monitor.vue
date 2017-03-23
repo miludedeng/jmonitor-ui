@@ -16,14 +16,16 @@
                 <i class="fa fa-th-list"></i> 堆内存使用
                 <div class="pull-right heap-wrapper">
                     <div class="btn-group">
-                        Heap: <span id="heap-used">28M</span>/<span id="heap-max">683M</span>&nbsp;&nbsp; NonHeap:
-                        <span id="non-heap-used">29M</span>/<span id="non-heap-max">n/a</span>
+                        Heap:
+                        <span>{{heapUsed}}</span>/
+                        <span>{{heapMax}}</span>&nbsp;&nbsp;
+                        NonHeap:
+                        <span>{{nonHeapUsed}}</span>/
+                        <span>{{nonHeapMax}}</span>
                     </div>
                 </div>
             </div>
-            <!-- /.panel-heading -->
             <div id="heapPrecent" class="panel-body" style="height: 300px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative; background: transparent;" _echarts_instance_="ec_1490192329884"><div style="position: relative; overflow: hidden; width: 423px; height: 270px; padding: 0px; margin: 0px; border-width: 0px;"><canvas width="423" height="270" data-zr-dom-id="zr_0" style="position: absolute; left: 0px; top: 0px; width: 423px; height: 270px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div></div></div>
-            <!-- /.panel-body -->
         </div>
     </div>
     <div class="col-lg-6">
@@ -32,7 +34,7 @@
                 <i class="fa fa-th-list"></i> 监视
                 <div class="pull-right">
                     <div class="btn-group">
-                        运行时间:<span id="up-time"> 0:54m</span>
+                        运行时间:<span id="up-time"> {{UpTime}}</span>
                     </div>
                 </div>
             </div>
@@ -43,43 +45,43 @@
                         <tbody>
                             <tr>
                                 <td>实时线程数:</td>
-                                <td id="thr-count">14</td>
+                                <td>{{threadCount}}</td>
                             </tr>
                             <tr>
                                 <td>最大线程数:</td>
-                                <td id="thr-max-count">15</td>
+                                <td>{{threadPeak}}</td>
                             </tr>
                             <tr>
                                 <td>共创建线程数:</td>
-                                <td id="total-thr-count">27</td>
+                                <td>{{threadCreated}}</td>
                             </tr>
                             <tr>
                                 <td>Class Loaded:</td>
-                                <td id="class-loaded">3951</td>
+                                <td>{{totalLoadedClasses}}</td>
                             </tr>
                             <tr>
                                 <td>GC Time:</td>
-                                <td id="gc-time"> 0: 0m</td>
+                                <td> {{gcTime}}</td>
                             </tr>
                             <tr>
                                 <td>GC 执行次数:</td>
-                                <td id="gc-runs">14</td>
+                                <td>{{gcRuns}}</td>
                             </tr>
                             <tr>
                                 <td>Old Space:</td>
-                                <td id="old-mem">8M / 85M / 512M</td>
+                                <td>{{oldSpaceUsed}} / {{oldSpaceCap}} / {{oldSpaceMax}}</td>
                             </tr>
                             <tr>
                                 <td>Eden Space:</td>
-                                <td id="eden-mem">20M / 25M / 255M</td>
+                                <td>{{edenSpaceUsed}} / {{edenSpaceCap}} / {{edenSpaceMax}}</td>
                             </tr>
                             <tr>
                                 <td>Survival from</td>
-                                <td id="sur1-mem">0B / 9M / 85M</td>
+                                <td>{{sur1SpaceUsed}} / {{sur1SpaceCap}} / {{sur1SpaceMax}}</td>
                             </tr>
                             <tr>
                                 <td>Survival to</td>
-                                <td id="sur2-mem">160K / 512K / 85M</td>
+                                <td>{{sur2SpaceUsed}} / {{sur2SpaceCap}} / {{sur2SpaceMax}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -144,7 +146,30 @@
 export default {
   name: 'Monitor',
   data () {
-    return {}
+    return {
+      heapUsed: '17M',
+      heapMax: '683M',
+      nonHeapUsed: '31M',
+      nonHeapMax: 'n/a',
+      threadCount: 17,
+      threadPeak: 17,
+      threadCreated: 306,
+      totalLoadedClasses: 3999,
+      gcTime: '0: 0m',
+      gcRuns: 375,
+      oldSpaceUsed: '4M',
+      oldSpaceCap: '85M',
+      oldSpaceMax: '512M',
+      edenSpaceUsed: '16M',
+      edenSpaceCap: '23M',
+      edenSpaceMax: '255M',
+      sur1SpaceUsed: '0B',
+      sur1SpaceCap: '512K',
+      sur1SpaceMax: '85M',
+      sur2SpaceUsed: '96K',
+      sur2SpaceCap: '512K',
+      sur2SpaceMax: '85M'
+    }
   }
 }
 </script>

@@ -19,7 +19,7 @@ export default new Router({
     },
     {
       path: '/index',
-      name: 'Welcome',
+      name: 'IndexWelcome',
       component: Welcome
     },
     {
@@ -27,22 +27,22 @@ export default new Router({
       name: 'Panel',
       component: Panel,
       children: [{
-        path: '/basic',
+        path: '/panel/basic',
         name: 'Basic',
         component: Basic
       },
       {
-        path: '/monitor',
+        path: '/panel/monitor',
         name: 'Monitor',
         component: Monitor
       },
       {
-        path: '/thread',
+        path: '/panel/thread',
         name: 'Thread',
         component: Thread
       },
       {
-        path: '/sql',
+        path: '/panel/sql',
         name: 'Sql',
         component: Sql
       }]

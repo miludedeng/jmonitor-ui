@@ -38,7 +38,7 @@
               <div class="sidebar-nav navbar-collapse">
                   <ul class="nav vm-list" id="side-menu">
                     <li v-for="jvm in jvms">
-                      <router-link to="/panel" :title="jvm.name" class="vm-title">
+                      <router-link to="/panel/basic" :title="jvm.name" class="vm-title">
                         <img :src="jvm.icon">
                         (pid {{jvm.pid}}) {{jvm.name}}
                       </router-link>
