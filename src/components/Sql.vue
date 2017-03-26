@@ -14,14 +14,14 @@
                                   <label>过滤：
                                       <input type="text" placeholder="最小毫秒值" class="form-control sql-filter-input sql-filter-min">-
                                       <input type="text" placeholder="最大毫秒值" class="form-control sql-filter-input sql-filter-max">
-                                      <button class="btn btn-default btn-sm btn-filter-submit">确认</button>
+                                      <button :class="['btn', 'btn-default', 'btn-sm', 'btn-filter-submit', {disabled: isNotLoaded}]">确认</button>
                                   </label>
                               </div>
                           </div>
                           <div class="col-sm-6">
                               <div class="dataTables_length pull-right" id="thread-table_length">
-                                  <button class="btn btn-default btn-sm btn-load-sql-list disabled" disabled="disabled">刷新</button>
-                                  <button class="btn btn-default btn-sm btn-load-sql-agent">载入Agent</button>
+                                  <button :class="['btn', 'btn-default', 'btn-sm', 'btn-load-sql-list', {disabled: isNotLoaded}]">刷新</button>
+                                  <button :class="['btn', 'btn-default', 'btn-sm', 'btn-load-sql-list', {disabled: isLoaded}]" @click="loadAgent">载入Agent</button>
                               </div>
                           </div>
                       </div>
@@ -60,7 +60,86 @@
 export default {
   name: 'Sql',
   data () {
-    return {}
+    return {
+      timer: null,
+      method: 'sql_stat/load_agent',
+      isLoadedMethod: 'sql_stat/is_load_agent',
+      isLoaded: false
+    }
+  },
+  computed: {
+    vmId () {
+      return this.$route.query.vmId
+    },
+    isNotLoaded () {
+      return !this.isLoaded
+    }
+  },
+  methods: {
+    loadSqlList () {
+      console.log('sql list loading')
+    },
+    loadAgent () {
+      this.$http.get(this.$url + this.method + '/' + this.vmId).then(m => {
+        if (m.status === 200) {
+          m = m.data
+          if (m.status === 'success') {
+            alert('agent loaded')
+            this.isLoaded = true
+          } else {
+            console.log(m.message)
+          }
+        } else {
+          console.log('get thread list failed')
+        }
+      })
+    }
+  },
+  filters: {
+    dateReadable (fmt) { // author: meizz
+      var o = {
+        'M+': this.getMonth() + 1, // 月份
+        'd+': this.getDate(), // 日
+        'H+': this.getHours(), // 小时
+        'm+': this.getMinutes(), // 分
+        's+': this.getSeconds(), // 秒
+        'q+': Math.floor((this.getMonth() + 3) / 3), // 季度
+        'S': this.getMilliseconds() // 毫秒
+      }
+      if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length))
+      for (var k in o) {
+        if (new RegExp('(' + k + ')').test(fmt)) {
+          fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length)))
+        }
+      }
+      return fmt
+    }
+  },
+  watch: {
+    isLoaded (newVal, oldVa) {
+      if (newVal) {
+        this.loadSqlList()
+      }
+    }
+  },
+  mounted () {
+    this.$http.get(this.$url + this.isLoadedMethod + '/' + this.vmId).then(m => {
+      if (m.status === 200) {
+        m = m.data
+        if (m.status === 'success' && m.message === 'true') {
+          this.isLoaded = true
+        } else {
+          return false
+        }
+      } else {
+        return false
+      }
+    })
+  },
+  beforeRouteLeave (to, from, next) {
+    clearInterval(this.timer)
+    console.log('sql destoryed')
+    next()
   }
 }
 </script>

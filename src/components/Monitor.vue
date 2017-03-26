@@ -6,7 +6,9 @@
                 <i class="fa fa-th-list"></i> Cpu使用率
             </div>
             <!-- /.panel-heading -->
-            <div id="cpuPrecent" class="panel-body" style="height: 300px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative; background: transparent;" _echarts_instance_="ec_1490192329883"><div style="position: relative; overflow: hidden; width: 423px; height: 270px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;"><canvas width="423" height="270" data-zr-dom-id="zr_0" style="position: absolute; left: 0px; top: 0px; width: 423px; height: 270px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div></div></div>
+            <div id="cpuPrecent" class="panel-body">
+              <cpu-usage :usage="cpuPrecent | floatReadable" />
+            </div>
             <!-- /.panel-body -->
         </div>
     </div>
@@ -25,7 +27,9 @@
                     </div>
                 </div>
             </div>
-            <div id="heapPrecent" class="panel-body" style="height: 300px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative; background: transparent;" _echarts_instance_="ec_1490192329884"><div style="position: relative; overflow: hidden; width: 423px; height: 270px; padding: 0px; margin: 0px; border-width: 0px;"><canvas width="423" height="270" data-zr-dom-id="zr_0" style="position: absolute; left: 0px; top: 0px; width: 423px; height: 270px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div></div></div>
+            <div id="heapPrecent" class="panel-body">
+              <mem-usage :usage="heapPrecent | floatReadable" />
+            </div>
         </div>
     </div>
     <div class="col-lg-6">
@@ -34,7 +38,7 @@
                 <i class="fa fa-th-list"></i> 监视
                 <div class="pull-right">
                     <div class="btn-group">
-                        运行时间:<span id="up-time"> {{UpTime}}</span>
+                        运行时间:<span id="up-time"> {{uptime}}</span>
                     </div>
                 </div>
             </div>
@@ -97,46 +101,16 @@
                 <i class="fa fa-th-list"></i> 实时堆内存
                 <div class="pull-right">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-xs btn-dogc">
+                        <button type="button" @click="doGC" class="btn btn-default btn-xs btn-dogc">
                             &nbsp;Do GC&nbsp;
                         </button>
                     </div>
                 </div>
             </div>
-            <!-- /.panel-heading -->
-            <div class="panel-body" style="height:401px">
-                <div class="col-md-8">
-                    <fieldset class="sp-fs">
-                        <legend>Old</legend>
-                        <div id="old-top" style="height: 312.3px; background-color: rgb(238, 238, 238);"></div>
-                        <div id="old-foot" style="height: 34.7px; background-color: rgb(104, 125, 21);"></div>
-                    </fieldset>
-                </div>
-                <div class="col-md-4">
-                    <div>
-                        <fieldset class="sp-fs">
-                            <legend>Eden</legend>
-                            <div id="eden-top" style="height: 41px; background-color: rgb(238, 238, 238);"></div>
-                            <div id="eden-foot" style="height: 164px; background-color: rgb(243, 178, 32);"></div>
-                        </fieldset>
-                    </div>
-                    <div>
-                        <fieldset class="sp-fs">
-                            <legend>Sur from</legend>
-                            <div id="from-top" style="height:48px;background-color: #eee;"></div>
-                            <div id="from-foot" style="height:0px;background-color: #d66312;"></div>
-                        </fieldset>
-                    </div>
-                    <div>
-                        <fieldset class="sp-fs">
-                            <legend>Sur to</legend>
-                            <div id="to-top" style="height: 33.12px; background-color: rgb(238, 238, 238);"></div>
-                            <div id="to-foot" style="height: 14.88px; background-color: rgb(214, 99, 18);"></div>
-                        </fieldset>
-                    </div>
-                </div>
-            </div>
-            <!-- /.panel-body -->
+            <heap-graph :old="oldSpacePrecent"
+              :eden="edenSpacePrecent"
+              :from="sur1SpacePrecent"
+              :to="sur2SpacePrecent" />
         </div>
     </div>
 </div>
@@ -144,44 +118,139 @@
 
 <script>
 // import echarts from 'echarts'
+import cpuUsage from '@/components/monitor/CpuUsage'
+import memUsage from '@/components/monitor/MemUsage'
+import heapGraph from '@/components/monitor/HeapGraph'
 export default {
   name: 'Monitor',
+  computed: {
+    vmId () {
+      return this.$route.query.vmId
+    }
+  },
   data () {
     return {
-      heapUsed: '17M',
-      heapMax: '683M',
-      nonHeapUsed: '31M',
-      nonHeapMax: 'n/a',
-      threadCount: 17,
-      threadPeak: 17,
-      threadCreated: 306,
-      totalLoadedClasses: 3999,
-      gcTime: '0: 0m',
-      gcRuns: 375,
-      oldSpaceUsed: '4M',
-      oldSpaceCap: '85M',
-      oldSpaceMax: '512M',
-      edenSpaceUsed: '16M',
-      edenSpaceCap: '23M',
-      edenSpaceMax: '255M',
-      sur1SpaceUsed: '0B',
-      sur1SpaceCap: '512K',
-      sur1SpaceMax: '85M',
-      sur2SpaceUsed: '96K',
-      sur2SpaceCap: '512K',
-      sur2SpaceMax: '85M'
+      method: 'vm_mon_info',
+      doGCMethod: 'vm_do_gc',
+      timer: null,
+      doGCLock: false,
+      cpuPrecent: 0,
+      heapPrecent: 0,
+      heapUsed: '',
+      heapMax: '',
+      nonHeapUsed: '',
+      nonHeapMax: '',
+      uptime: '',
+      threadCount: 0,
+      threadPeak: 0,
+      threadCreated: 0,
+      totalLoadedClasses: 0,
+      gcTime: '',
+      gcRuns: 0,
+      oldSpaceUsed: '',
+      oldSpaceCap: '',
+      oldSpaceMax: '',
+      edenSpaceUsed: '',
+      edenSpaceCap: '',
+      edenSpaceMax: '',
+      sur1SpaceUsed: '',
+      sur1SpaceCap: '',
+      sur1SpaceMax: '',
+      sur2SpaceUsed: '',
+      sur2SpaceCap: '',
+      sur2SpaceMax: '',
+      oldSpacePrecent: 0,
+      edenSpacePrecent: 0,
+      sur1SpacePrecent: 0,
+      sur2SpacePrecent: 0
     }
+  },
+  components: {
+    cpuUsage,
+    memUsage,
+    heapGraph
+  },
+  methods: {
+    doGC () {
+      if (this.doGCLock) {
+        return false
+      }
+      this.doGCLock = true
+      this.$http.get(this.$url + this.doGCMethod + '/' + this.vmId).then(m => {
+        if (m.status === 200) {
+          m = m.data
+          if (m.status === 'success') {
+            alert('gc success')
+          } else {
+            alert(m.message)
+            console.log(m.message)
+          }
+        } else {
+          console.log('gc failed')
+        }
+        this.doGCLock = false
+      })
+    },
+    updateData () {
+      this.$http.get(this.$url + this.method + '/' + this.vmId).then(m => {
+        if (m.status === 200) {
+          m = m.data
+          if (m.status === 'success') {
+            this.cpuPrecent = m.data.CPUPrecent
+            this.heapPrecent = m.data.HeapPrecent
+            this.heapUsed = m.data.HeapUsed
+            this.heapMax = m.data.HeapMax
+            this.nonHeapUsed = m.data.NonHeapUsed
+            this.nonHeapMax = m.data.NonHeapMax
+            this.uptime = m.data.UpTime
+            this.threadCount = m.data.ThreadCount
+            this.threadPeak = m.data.ThreadPeak
+            this.threadCreated = m.data.ThreadCreated
+            this.totalLoadedClasses = m.data.TotalLoadedClasses
+            this.gcTime = m.data.GCTime
+            this.gcRuns = m.data.GCRuns
+            this.oldSpaceUsed = m.data.OldSpaceUsed
+            this.oldSpaceCap = m.data.OldSpaceCap
+            this.oldSpaceMax = m.data.OldSpaceMax
+            this.edenSpaceUsed = m.data.EdenSpaceUsed
+            this.edenSpaceCap = m.data.EdenSpaceCap
+            this.edenSpaceMax = m.data.EdenSpaceMax
+            this.sur1SpaceUsed = m.data.Sur1SpaceUsed
+            this.sur1SpaceCap = m.data.Sur1SpaceCap
+            this.sur1SpaceMax = m.data.Sur1SpaceMax
+            this.sur2SpaceUsed = m.data.Sur2SpaceUsed
+            this.sur2SpaceCap = m.data.Sur2SpaceCap
+            this.sur2SpaceMax = m.data.Sur2SpaceMax
+            this.oldSpacePrecent = m.data.OldSpacePrecent
+            this.edenSpacePrecent = m.data.EdenSpacePrecent
+            this.sur1SpacePrecent = m.data.Sur1SpacePrecent
+            this.sur2SpacePrecent = m.data.Sur2SpacePrecent
+          } else {
+            console.log(m.message)
+          }
+        } else {
+          console.log('get jvm monitor info failed')
+        }
+      })
+    }
+  },
+  filters: {
+    floatReadable (val) {
+      return val.toFixed(2)
+    }
+  },
+  mounted () {
+    this.updateData()
+    this.timer = setInterval(() => {
+      this.updateData()
+    }, 1000)
+  },
+  beforeRouteLeave (to, from, next) {
+    clearInterval(this.timer)
+    next()
   }
 }
 </script>
 
 <style scoped>
-.sp-fs {
-    border: 2px solid #bbb;
-    height: 100%;
-}
-.sp-fs legend {
-    font-size: 14px;
-    margin-bottom: 0px;
-}
 </style>

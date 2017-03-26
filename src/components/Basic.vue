@@ -61,30 +61,61 @@
 <script>
 export default {
   name: 'Basic',
+  computed: {
+    vmId () {
+      return this.$route.query.vmId
+    }
+  },
   data () {
     return {
-      pid: 60946,
-      user: 'liujing',
-      vendor: 'JetBrains s.r.o',
-      vmName: 'OpenJDK 64-Bit Server VM',
-      vmVersion: '1.8.0_112-release',
-      args: ['[UNKNOWN]'],
-      vmArgs: [
-        '-Djava.awt.headless=true',
-        '-Didea.version==2016.3.4',
-        '-Xmx768m',
-        '-Didea.maven.embedder.version=3.3.9',
-        '-Dfile.encoding=UTF-8'
-      ],
-      systemProperties: {
-        'gopherProxySet': 'false',
-        'awt.toolkit': 'sun.lwawt.macosx.LWCToolkit',
-        'file.encoding.pkg': 'sun.io',
-        'java.specification.version': '1.8',
-        'sun.cpu.isalist': '',
-        'sun.jnu.encoding': 'UTF-8'
-      }
+      method: 'vm_basic_info',
+      pid: 0,
+      user: '',
+      vendor: '',
+      vmName: '',
+      vmVersion: '',
+      args: [],
+      vmArgs: [],
+      systemProperties: {}
     }
+  },
+  methods: {
+    updateData () {
+      this.$http.get(this.$url + this.method + '/' + this.vmId).then(m => {
+        if (m.status === 200) {
+          m = m.data
+          if (m.status === 'success') {
+            this.pid = m.data.PID
+            this.vendor = m.data.Vendor
+            this.user = m.data.User
+            this.vmName = m.data.VmName
+            this.vmVersion = m.data.VmVersion
+            this.vmArgs = m.data.VmArgs
+            this.systemProperties = m.data.SystemProperties
+            var args = m.data.Args
+            this.args = []
+            if (args instanceof Array) {
+              for (var i = 0; i < args.length; i++) {
+                this.args = args
+              }
+            } else {
+              this.args.push(args)
+            }
+          } else {
+            console.log(m.message)
+          }
+        } else {
+          console.log('get os_info failed')
+        }
+      })
+    }
+  },
+  mounted () {
+    this.updateData()
+  },
+  beforeRouteUpdate (to, from, next) {
+    next()
+    this.updateData()
   }
 }
 </script>

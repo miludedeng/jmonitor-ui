@@ -5,16 +5,15 @@
             <div class="panel-heading">
                 <i class="fa fa-th-list"></i> 线程
             </div>
-            <!-- /.panel-heading -->
             <div class="panel-body">
                 <div id="sql-table_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="dataTables_length" id="thread-table_length">
                                 <label>显示条数：
-                                    <select class="form-control input-sm thread-list-count">
+                                    <select class="form-control input-sm thread-list-count" v-model="listCount">
                                         <option value="10">10</option>
-                                        <option selected="" value="25">25</option>
+                                        <option value="25">25</option>
                                         <option value="50">50</option>
                                         <option value="100">100</option>
                                     </select>
@@ -24,7 +23,7 @@
                         <div class="col-sm-6">
                             <div class="dataTables_length pull-right" id="thread-table_length">
                                 <label>线程数：
-                                    <span id="thread-count">61</span>
+                                    <span id="thread-count">{{threadCount}}</span>
                                 </label>
                             </div>
                         </div>
@@ -35,246 +34,147 @@
                                 <thead>
                                     <tr>
                                         <th width="10%">Thread ID</th>
-                                        <th width="40%">Name</th>
-                                        <th width="20%">State</th>
-                                        <th width="10%">CPU</th>
+                                        <th width="45%">Name</th>
+                                        <th width="15%">State</th>
+                                        <th width="8%">CPU</th>
                                         <th width="10%">Total CPU</th>
-                                        <th width="10%">Blocked By</th>
+                                        <th width="12%">Blocked By</th>
                                         <th width="10%"></th>
                                     </tr>
                                 </thead>
                                 <tbody id="thread-list"><tr class="odd gradeX">
-                <td>237</td>
-                <td>RMI TCP Connection(196)-127.0.0.1</td>
-                <td>RUNNABLE</td>
-                <td>181.97%</td>
-                <td>0.04%</td>
-                <td></td>
-                <td><input type="button" value="view" class="btn btn-default btn-sm btn-thread-view" data-toggle="modal" data-target="#threadModal" data-info="%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.net.SocketInputStream.socketRead0%20(SocketInputStream.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.net.SocketInputStream.socketRead%20(SocketInputStream.java%20:%20116)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.net.SocketInputStream.read%20(SocketInputStream.java%20:%20170)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.net.SocketInputStream.read%20(SocketInputStream.java%20:%20141)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.BufferedInputStream.fill%20(BufferedInputStream.java%20:%20246)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.BufferedInputStream.read%20(BufferedInputStream.java%20:%20265)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.FilterInputStream.read%20(FilterInputStream.java%20:%2083)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.tcp.TCPTransport.handleMessages%20(TCPTransport.java%20:%20550)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0%20(TCPTransport.java%20:%20826)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0%20(TCPTransport.java%20:%20683)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.tcp.TCPTransport$ConnectionHandler$Lambda$672/1017669726.run%20(%20:%20-1)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.security.AccessController.doPrivileged%20(AccessController.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run%20(TCPTransport.java%20:%20682)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor.runWorker%20(ThreadPoolExecutor.java%20:%201142)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor$Worker.run%20(ThreadPoolExecutor.java%20:%20617)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Thread.run%20(Thread.java%20:%20745)%3C/div%3E"></td>
-            </tr><tr class="odd gradeX">
-                <td>168</td>
-                <td>RMI TCP Connection(181)-127.0.0.1</td>
-                <td>RUNNABLE</td>
-                <td>64.61%</td>
-                <td>1.06%</td>
-                <td></td>
-                <td><input type="button" value="view" class="btn btn-default btn-sm btn-thread-view" data-toggle="modal" data-target="#threadModal" data-info="%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.management.ThreadImpl.dumpThreads0%20(ThreadImpl.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.management.ThreadImpl.dumpAllThreads%20(ThreadImpl.java%20:%20454)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.reflect.GeneratedMethodAccessor391.invoke%20(%20:%20-1)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.reflect.DelegatingMethodAccessorImpl.invoke%20(DelegatingMethodAccessorImpl.java%20:%2043)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.reflect.Method.invoke%20(Method.java%20:%20498)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.reflect.misc.Trampoline.invoke%20(MethodUtil.java%20:%2071)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.reflect.GeneratedMethodAccessor8.invoke%20(%20:%20-1)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.reflect.DelegatingMethodAccessorImpl.invoke%20(DelegatingMethodAccessorImpl.java%20:%2043)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.reflect.Method.invoke%20(Method.java%20:%20498)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.reflect.misc.MethodUtil.invoke%20(MethodUtil.java%20:%20275)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.sun.jmx.mbeanserver.ConvertingMethod.invokeWithOpenReturn%20(ConvertingMethod.java%20:%20193)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.sun.jmx.mbeanserver.ConvertingMethod.invokeWithOpenReturn%20(ConvertingMethod.java%20:%20175)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.sun.jmx.mbeanserver.MXBeanIntrospector.invokeM2%20(MXBeanIntrospector.java%20:%20117)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.sun.jmx.mbeanserver.MXBeanIntrospector.invokeM2%20(MXBeanIntrospector.java%20:%2054)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.sun.jmx.mbeanserver.MBeanIntrospector.invokeM%20(MBeanIntrospector.java%20:%20237)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.sun.jmx.mbeanserver.PerInterface.invoke%20(PerInterface.java%20:%20138)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.sun.jmx.mbeanserver.MBeanSupport.invoke%20(MBeanSupport.java%20:%20252)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20javax.management.StandardMBean.invoke%20(StandardMBean.java%20:%20405)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.invoke%20(DefaultMBeanServerInterceptor.java%20:%20819)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.sun.jmx.mbeanserver.JmxMBeanServer.invoke%20(JmxMBeanServer.java%20:%20801)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20javax.management.remote.rmi.RMIConnectionImpl.doOperation%20(RMIConnectionImpl.java%20:%201468)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20javax.management.remote.rmi.RMIConnectionImpl.access$300%20(RMIConnectionImpl.java%20:%2076)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20javax.management.remote.rmi.RMIConnectionImpl$PrivilegedOperation.run%20(RMIConnectionImpl.java%20:%201309)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20javax.management.remote.rmi.RMIConnectionImpl.doPrivilegedOperation%20(RMIConnectionImpl.java%20:%201401)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20javax.management.remote.rmi.RMIConnectionImpl.invoke%20(RMIConnectionImpl.java%20:%20829)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.reflect.GeneratedMethodAccessor128.invoke%20(%20:%20-1)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.reflect.DelegatingMethodAccessorImpl.invoke%20(DelegatingMethodAccessorImpl.java%20:%2043)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.reflect.Method.invoke%20(Method.java%20:%20498)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.server.UnicastServerRef.dispatch%20(UnicastServerRef.java%20:%20324)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.Transport$1.run%20(Transport.java%20:%20200)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.Transport$1.run%20(Transport.java%20:%20197)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.security.AccessController.doPrivileged%20(AccessController.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.Transport.serviceCall%20(Transport.java%20:%20196)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.tcp.TCPTransport.handleMessages%20(TCPTransport.java%20:%20568)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0%20(TCPTransport.java%20:%20826)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0%20(TCPTransport.java%20:%20683)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.tcp.TCPTransport$ConnectionHandler$Lambda$672/1017669726.run%20(%20:%20-1)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.security.AccessController.doPrivileged%20(AccessController.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run%20(TCPTransport.java%20:%20682)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor.runWorker%20(ThreadPoolExecutor.java%20:%201142)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor$Worker.run%20(ThreadPoolExecutor.java%20:%20617)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Thread.run%20(Thread.java%20:%20745)%3C/div%3E"></td>
-            </tr><tr class="odd gradeX">
-                <td>238</td>
-                <td>RMI TCP Connection(197)-127.0.0.1</td>
-                <td>RUNNABLE</td>
-                <td>16.57%</td>
-                <td>0.09%</td>
-                <td></td>
-                <td><input type="button" value="view" class="btn btn-default btn-sm btn-thread-view" data-toggle="modal" data-target="#threadModal" data-info="%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.System.identityHashCode%20(System.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream$HandleTable.hash%20(ObjectOutputStream.java%20:%202360)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream$HandleTable.lookup%20(ObjectOutputStream.java%20:%202293)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream$ReplaceTable.lookup%20(ObjectOutputStream.java%20:%202399)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream.writeObject0%20(ObjectOutputStream.java%20:%201113)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream.defaultWriteFields%20(ObjectOutputStream.java%20:%201548)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream.writeSerialData%20(ObjectOutputStream.java%20:%201509)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream.writeOrdinaryObject%20(ObjectOutputStream.java%20:%201432)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream.writeObject0%20(ObjectOutputStream.java%20:%201178)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream.defaultWriteFields%20(ObjectOutputStream.java%20:%201548)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream.writeSerialData%20(ObjectOutputStream.java%20:%201509)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream.writeOrdinaryObject%20(ObjectOutputStream.java%20:%201432)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream.writeObject0%20(ObjectOutputStream.java%20:%201178)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream.writeObject%20(ObjectOutputStream.java%20:%20348)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.LinkedHashMap.internalWriteEntries%20(LinkedHashMap.java%20:%20332)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.HashMap.writeObject%20(HashMap.java%20:%201362)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.reflect.GeneratedMethodAccessor129.invoke%20(%20:%20-1)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.reflect.DelegatingMethodAccessorImpl.invoke%20(DelegatingMethodAccessorImpl.java%20:%2043)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.reflect.Method.invoke%20(Method.java%20:%20498)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectStreamClass.invokeWriteObject%20(ObjectStreamClass.java%20:%201028)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream.writeSerialData%20(ObjectOutputStream.java%20:%201496)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream.writeOrdinaryObject%20(ObjectOutputStream.java%20:%201432)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream.writeObject0%20(ObjectOutputStream.java%20:%201178)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream.defaultWriteFields%20(ObjectOutputStream.java%20:%201548)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream.writeSerialData%20(ObjectOutputStream.java%20:%201509)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream.writeOrdinaryObject%20(ObjectOutputStream.java%20:%201432)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream.writeObject0%20(ObjectOutputStream.java%20:%201178)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream.defaultWriteFields%20(ObjectOutputStream.java%20:%201548)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream.writeSerialData%20(ObjectOutputStream.java%20:%201509)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream.writeOrdinaryObject%20(ObjectOutputStream.java%20:%201432)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream.writeObject0%20(ObjectOutputStream.java%20:%201178)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream.writeObject%20(ObjectOutputStream.java%20:%20348)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.ArrayList.writeObject%20(ArrayList.java%20:%20762)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.reflect.GeneratedMethodAccessor88.invoke%20(%20:%20-1)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.reflect.DelegatingMethodAccessorImpl.invoke%20(DelegatingMethodAccessorImpl.java%20:%2043)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.reflect.Method.invoke%20(Method.java%20:%20498)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectStreamClass.invokeWriteObject%20(ObjectStreamClass.java%20:%201028)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream.writeSerialData%20(ObjectOutputStream.java%20:%201496)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream.writeOrdinaryObject%20(ObjectOutputStream.java%20:%201432)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream.writeObject0%20(ObjectOutputStream.java%20:%201178)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.ObjectOutputStream.writeObject%20(ObjectOutputStream.java%20:%20348)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.server.UnicastRef.marshalValue%20(UnicastRef.java%20:%20294)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.server.UnicastServerRef.dispatch%20(UnicastServerRef.java%20:%20334)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.Transport$1.run%20(Transport.java%20:%20200)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.Transport$1.run%20(Transport.java%20:%20197)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.security.AccessController.doPrivileged%20(AccessController.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.Transport.serviceCall%20(Transport.java%20:%20196)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.tcp.TCPTransport.handleMessages%20(TCPTransport.java%20:%20568)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0%20(TCPTransport.java%20:%20826)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0%20(TCPTransport.java%20:%20683)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.tcp.TCPTransport$ConnectionHandler$Lambda$672/1017669726.run%20(%20:%20-1)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.security.AccessController.doPrivileged%20(AccessController.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run%20(TCPTransport.java%20:%20682)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor.runWorker%20(ThreadPoolExecutor.java%20:%201142)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor$Worker.run%20(ThreadPoolExecutor.java%20:%20617)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Thread.run%20(Thread.java%20:%20745)%3C/div%3E"></td>
-            </tr><tr class="odd gradeX">
-                <td>165</td>
-                <td>JMX server connection timeout 165</td>
-                <td>WAITING</td>
-                <td>14.26%</td>
-                <td>0.19%</td>
-                <td></td>
-                <td><input type="button" value="view" class="btn btn-default btn-sm btn-thread-view" data-toggle="modal" data-target="#threadModal" data-info="%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Object.wait%20(Object.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Object.wait%20(Object.java%20:%20502)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.sun.jmx.remote.internal.ServerCommunicatorAdmin$Timeout.run%20(ServerCommunicatorAdmin.java%20:%20150)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Thread.run%20(Thread.java%20:%20745)%3C/div%3E"></td>
-            </tr><tr class="odd gradeX">
-                <td>31</td>
-                <td>BaseDataReader: output stream of fsnotifier</td>
-                <td>RUNNABLE</td>
-                <td>1.48%</td>
-                <td>0.19%</td>
-                <td></td>
-                <td><input type="button" value="view" class="btn btn-default btn-sm btn-thread-view" data-toggle="modal" data-target="#threadModal" data-info="%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.FileInputStream.readBytes%20(FileInputStream.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.FileInputStream.read%20(FileInputStream.java%20:%20255)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.BufferedInputStream.read1%20(BufferedInputStream.java%20:%20284)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.BufferedInputStream.read%20(BufferedInputStream.java%20:%20345)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.nio.cs.StreamDecoder.readBytes%20(StreamDecoder.java%20:%20284)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.nio.cs.StreamDecoder.implRead%20(StreamDecoder.java%20:%20326)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.nio.cs.StreamDecoder.read%20(StreamDecoder.java%20:%20178)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.InputStreamReader.read%20(InputStreamReader.java%20:%20184)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.Reader.read%20(Reader.java%20:%20140)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.intellij.util.io.BaseOutputReader.readAvailableBlocking%20(BaseOutputReader.java%20:%20137)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.intellij.util.io.BaseDataReader.readAvailable%20(BaseDataReader.java%20:%2082)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.intellij.util.io.BaseDataReader.doRun%20(BaseDataReader.java%20:%20160)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.intellij.util.io.BaseDataReader$1.run%20(BaseDataReader.java%20:%2061)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.Executors$RunnableAdapter.call%20(Executors.java%20:%20511)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.FutureTask.run%20(FutureTask.java%20:%20266)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor.runWorker%20(ThreadPoolExecutor.java%20:%201142)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor$Worker.run%20(ThreadPoolExecutor.java%20:%20617)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Thread.run%20(Thread.java%20:%20745)%3C/div%3E"></td>
-            </tr><tr class="odd gradeX">
-                <td>235</td>
-                <td>RMI TCP Connection(199)-127.0.0.1</td>
-                <td>RUNNABLE</td>
-                <td>0.00%</td>
-                <td>0.04%</td>
-                <td></td>
-                <td><input type="button" value="view" class="btn btn-default btn-sm btn-thread-view" data-toggle="modal" data-target="#threadModal" data-info="%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.net.SocketInputStream.socketRead0%20(SocketInputStream.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.net.SocketInputStream.socketRead%20(SocketInputStream.java%20:%20116)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.net.SocketInputStream.read%20(SocketInputStream.java%20:%20170)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.net.SocketInputStream.read%20(SocketInputStream.java%20:%20141)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.BufferedInputStream.fill%20(BufferedInputStream.java%20:%20246)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.BufferedInputStream.read%20(BufferedInputStream.java%20:%20265)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.FilterInputStream.read%20(FilterInputStream.java%20:%2083)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.tcp.TCPTransport.handleMessages%20(TCPTransport.java%20:%20550)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0%20(TCPTransport.java%20:%20826)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0%20(TCPTransport.java%20:%20683)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.tcp.TCPTransport$ConnectionHandler$Lambda$672/1017669726.run%20(%20:%20-1)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.security.AccessController.doPrivileged%20(AccessController.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run%20(TCPTransport.java%20:%20682)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor.runWorker%20(ThreadPoolExecutor.java%20:%201142)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor$Worker.run%20(ThreadPoolExecutor.java%20:%20617)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Thread.run%20(Thread.java%20:%20745)%3C/div%3E"></td>
-            </tr><tr class="odd gradeX">
-                <td>233</td>
-                <td>ApplicationImpl pooled thread 40</td>
-                <td>TIMED_WAITING</td>
-                <td>0.00%</td>
-                <td>0.02%</td>
-                <td></td>
-                <td><input type="button" value="view" class="btn btn-default btn-sm btn-thread-view" data-toggle="modal" data-target="#threadModal" data-info="%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.misc.Unsafe.park%20(Unsafe.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.locks.LockSupport.parkNanos%20(LockSupport.java%20:%20215)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill%20(SynchronousQueue.java%20:%20460)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.SynchronousQueue$TransferStack.transfer%20(SynchronousQueue.java%20:%20362)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.SynchronousQueue.poll%20(SynchronousQueue.java%20:%20941)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor.getTask%20(ThreadPoolExecutor.java%20:%201066)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor.runWorker%20(ThreadPoolExecutor.java%20:%201127)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor$Worker.run%20(ThreadPoolExecutor.java%20:%20617)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Thread.run%20(Thread.java%20:%20745)%3C/div%3E"></td>
-            </tr><tr class="odd gradeX">
-                <td>232</td>
-                <td>ApplicationImpl pooled thread 39</td>
-                <td>TIMED_WAITING</td>
-                <td>0.00%</td>
-                <td>0.02%</td>
-                <td></td>
-                <td><input type="button" value="view" class="btn btn-default btn-sm btn-thread-view" data-toggle="modal" data-target="#threadModal" data-info="%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.misc.Unsafe.park%20(Unsafe.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.locks.LockSupport.parkNanos%20(LockSupport.java%20:%20215)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill%20(SynchronousQueue.java%20:%20460)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.SynchronousQueue$TransferStack.transfer%20(SynchronousQueue.java%20:%20362)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.SynchronousQueue.poll%20(SynchronousQueue.java%20:%20941)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor.getTask%20(ThreadPoolExecutor.java%20:%201066)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor.runWorker%20(ThreadPoolExecutor.java%20:%201127)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor$Worker.run%20(ThreadPoolExecutor.java%20:%20617)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Thread.run%20(Thread.java%20:%20745)%3C/div%3E"></td>
-            </tr><tr class="odd gradeX">
-                <td>231</td>
-                <td>ApplicationImpl pooled thread 38</td>
-                <td>TIMED_WAITING</td>
-                <td>0.00%</td>
-                <td>0.03%</td>
-                <td></td>
-                <td><input type="button" value="view" class="btn btn-default btn-sm btn-thread-view" data-toggle="modal" data-target="#threadModal" data-info="%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.misc.Unsafe.park%20(Unsafe.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.locks.LockSupport.parkNanos%20(LockSupport.java%20:%20215)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill%20(SynchronousQueue.java%20:%20460)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.SynchronousQueue$TransferStack.transfer%20(SynchronousQueue.java%20:%20362)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.SynchronousQueue.poll%20(SynchronousQueue.java%20:%20941)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor.getTask%20(ThreadPoolExecutor.java%20:%201066)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor.runWorker%20(ThreadPoolExecutor.java%20:%201127)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor$Worker.run%20(ThreadPoolExecutor.java%20:%20617)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Thread.run%20(Thread.java%20:%20745)%3C/div%3E"></td>
-            </tr><tr class="odd gradeX">
-                <td>228</td>
-                <td>ApplicationImpl pooled thread 35</td>
-                <td>TIMED_WAITING</td>
-                <td>0.00%</td>
-                <td>0.03%</td>
-                <td></td>
-                <td><input type="button" value="view" class="btn btn-default btn-sm btn-thread-view" data-toggle="modal" data-target="#threadModal" data-info="%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.misc.Unsafe.park%20(Unsafe.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.locks.LockSupport.parkNanos%20(LockSupport.java%20:%20215)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill%20(SynchronousQueue.java%20:%20460)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.SynchronousQueue$TransferStack.transfer%20(SynchronousQueue.java%20:%20362)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.SynchronousQueue.poll%20(SynchronousQueue.java%20:%20941)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor.getTask%20(ThreadPoolExecutor.java%20:%201066)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor.runWorker%20(ThreadPoolExecutor.java%20:%201127)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor$Worker.run%20(ThreadPoolExecutor.java%20:%20617)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Thread.run%20(Thread.java%20:%20745)%3C/div%3E"></td>
-            </tr><tr class="odd gradeX">
-                <td>226</td>
-                <td>ApplicationImpl pooled thread 33</td>
-                <td>TIMED_WAITING</td>
-                <td>0.00%</td>
-                <td>0.03%</td>
-                <td></td>
-                <td><input type="button" value="view" class="btn btn-default btn-sm btn-thread-view" data-toggle="modal" data-target="#threadModal" data-info="%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.misc.Unsafe.park%20(Unsafe.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.locks.LockSupport.parkNanos%20(LockSupport.java%20:%20215)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill%20(SynchronousQueue.java%20:%20460)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.SynchronousQueue$TransferStack.transfer%20(SynchronousQueue.java%20:%20362)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.SynchronousQueue.poll%20(SynchronousQueue.java%20:%20941)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor.getTask%20(ThreadPoolExecutor.java%20:%201066)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor.runWorker%20(ThreadPoolExecutor.java%20:%201127)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor$Worker.run%20(ThreadPoolExecutor.java%20:%20617)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Thread.run%20(Thread.java%20:%20745)%3C/div%3E"></td>
-            </tr><tr class="odd gradeX">
-                <td>163</td>
-                <td>RMI TCP Accept-0</td>
-                <td>RUNNABLE</td>
-                <td>0.00%</td>
-                <td>0.00%</td>
-                <td></td>
-                <td><input type="button" value="view" class="btn btn-default btn-sm btn-thread-view" data-toggle="modal" data-target="#threadModal" data-info="%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.net.PlainSocketImpl.socketAccept%20(PlainSocketImpl.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.net.AbstractPlainSocketImpl.accept%20(AbstractPlainSocketImpl.java%20:%20409)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.net.ServerSocket.implAccept%20(ServerSocket.java%20:%20545)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.net.ServerSocket.accept%20(ServerSocket.java%20:%20513)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.management.jmxremote.LocalRMIServerSocketFactory$1.accept%20(LocalRMIServerSocketFactory.java%20:%2052)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.tcp.TCPTransport$AcceptLoop.executeAcceptLoop%20(TCPTransport.java%20:%20400)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.rmi.transport.tcp.TCPTransport$AcceptLoop.run%20(TCPTransport.java%20:%20372)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Thread.run%20(Thread.java%20:%20745)%3C/div%3E"></td>
-            </tr><tr class="odd gradeX">
-                <td>162</td>
-                <td>Attach Listener</td>
-                <td>RUNNABLE</td>
-                <td>0.00%</td>
-                <td>0.03%</td>
-                <td></td>
-                <td><input type="button" value="view" class="btn btn-default btn-sm btn-thread-view" data-toggle="modal" data-target="#threadModal" data-info=""></td>
-            </tr><tr class="odd gradeX">
-                <td>155</td>
-                <td>pool-13-thread-1</td>
-                <td>WAITING</td>
-                <td>0.00%</td>
-                <td>0.00%</td>
-                <td></td>
-                <td><input type="button" value="view" class="btn btn-default btn-sm btn-thread-view" data-toggle="modal" data-target="#threadModal" data-info="%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.misc.Unsafe.park%20(Unsafe.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.locks.LockSupport.park%20(LockSupport.java%20:%20175)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await%20(AbstractQueuedSynchronizer.java%20:%202039)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take%20(ScheduledThreadPoolExecutor.java%20:%201081)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take%20(ScheduledThreadPoolExecutor.java%20:%20809)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor.getTask%20(ThreadPoolExecutor.java%20:%201067)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor.runWorker%20(ThreadPoolExecutor.java%20:%201127)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor$Worker.run%20(ThreadPoolExecutor.java%20:%20617)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Thread.run%20(Thread.java%20:%20745)%3C/div%3E"></td>
-            </tr><tr class="odd gradeX">
-                <td>153</td>
-                <td>rebel-jdi-event-pump</td>
-                <td>WAITING</td>
-                <td>0.00%</td>
-                <td>0.08%</td>
-                <td></td>
-                <td><input type="button" value="view" class="btn btn-default btn-sm btn-thread-view" data-toggle="modal" data-target="#threadModal" data-info="%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Object.wait%20(Object.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Object.wait%20(Object.java%20:%20502)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.sun.tools.jdi.EventQueueImpl.removeUnfiltered%20(EventQueueImpl.java%20:%20189)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.sun.tools.jdi.EventQueueImpl.remove%20(EventQueueImpl.java%20:%2096)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.sun.tools.jdi.EventQueueImpl.remove%20(EventQueueImpl.java%20:%2082)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.zeroturnaround.jdi.event.JREventQueue$1.run%20(JREventQueue.java%20:%2039)%3C/div%3E"></td>
-            </tr><tr class="odd gradeX">
-                <td>148</td>
-                <td>BaseDataReader: error stream of java</td>
-                <td>TIMED_WAITING</td>
-                <td>0.00%</td>
-                <td>0.93%</td>
-                <td></td>
-                <td><input type="button" value="view" class="btn btn-default btn-sm btn-thread-view" data-toggle="modal" data-target="#threadModal" data-info="%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Object.wait%20(Object.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.intellij.util.io.BaseDataReader.doRun%20(BaseDataReader.java%20:%20173)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.intellij.util.io.BaseDataReader$1.run%20(BaseDataReader.java%20:%2061)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.Executors$RunnableAdapter.call%20(Executors.java%20:%20511)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.FutureTask.run%20(FutureTask.java%20:%20266)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor.runWorker%20(ThreadPoolExecutor.java%20:%201142)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor$Worker.run%20(ThreadPoolExecutor.java%20:%20617)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Thread.run%20(Thread.java%20:%20745)%3C/div%3E"></td>
-            </tr><tr class="odd gradeX">
-                <td>147</td>
-                <td>BaseDataReader: output stream of java</td>
-                <td>TIMED_WAITING</td>
-                <td>0.00%</td>
-                <td>0.94%</td>
-                <td></td>
-                <td><input type="button" value="view" class="btn btn-default btn-sm btn-thread-view" data-toggle="modal" data-target="#threadModal" data-info="%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Object.wait%20(Object.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.intellij.util.io.BaseDataReader.doRun%20(BaseDataReader.java%20:%20173)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.intellij.util.io.BaseDataReader$1.run%20(BaseDataReader.java%20:%2061)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.Executors$RunnableAdapter.call%20(Executors.java%20:%20511)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.FutureTask.run%20(FutureTask.java%20:%20266)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor.runWorker%20(ThreadPoolExecutor.java%20:%201142)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor$Worker.run%20(ThreadPoolExecutor.java%20:%20617)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Thread.run%20(Thread.java%20:%20745)%3C/div%3E"></td>
-            </tr><tr class="odd gradeX">
-                <td>145</td>
-                <td>JDI Internal Event Handler</td>
-                <td>WAITING</td>
-                <td>0.00%</td>
-                <td>0.12%</td>
-                <td></td>
-                <td><input type="button" value="view" class="btn btn-default btn-sm btn-thread-view" data-toggle="modal" data-target="#threadModal" data-info="%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Object.wait%20(Object.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Object.wait%20(Object.java%20:%20502)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.sun.tools.jdi.EventQueueImpl.removeUnfiltered%20(EventQueueImpl.java%20:%20189)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.sun.tools.jdi.EventQueueImpl.removeInternal%20(EventQueueImpl.java%20:%20124)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.sun.tools.jdi.InternalEventHandler.run%20(InternalEventHandler.java%20:%2054)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Thread.run%20(Thread.java%20:%20745)%3C/div%3E"></td>
-            </tr><tr class="odd gradeX">
-                <td>144</td>
-                <td>JDI Target VM Interface</td>
-                <td>RUNNABLE</td>
-                <td>0.00%</td>
-                <td>0.12%</td>
-                <td></td>
-                <td><input type="button" value="view" class="btn btn-default btn-sm btn-thread-view" data-toggle="modal" data-target="#threadModal" data-info="%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.net.SocketInputStream.socketRead0%20(SocketInputStream.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.net.SocketInputStream.socketRead%20(SocketInputStream.java%20:%20116)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.net.SocketInputStream.read%20(SocketInputStream.java%20:%20170)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.net.SocketInputStream.read%20(SocketInputStream.java%20:%20141)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.net.SocketInputStream.read%20(SocketInputStream.java%20:%20223)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.sun.tools.jdi.SocketConnection.readPacket%20(SocketTransportService.java%20:%20411)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.zeroturnaround.jdi.util.ConnectionWrapper.readPacket%20(ConnectionWrapper.java%20:%2048)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.sun.tools.jdi.TargetVM.run%20(TargetVM.java%20:%20118)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Thread.run%20(Thread.java%20:%20745)%3C/div%3E"></td>
-            </tr><tr class="odd gradeX">
-                <td>143</td>
-                <td>ProcessWaitFor: java</td>
-                <td>WAITING</td>
-                <td>0.00%</td>
-                <td>0.00%</td>
-                <td></td>
-                <td><input type="button" value="view" class="btn btn-default btn-sm btn-thread-view" data-toggle="modal" data-target="#threadModal" data-info="%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Object.wait%20(Object.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Object.wait%20(Object.java%20:%20502)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.UNIXProcess.waitFor%20(UNIXProcess.java%20:%20395)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.intellij.execution.process.ProcessWaitFor$1.run%20(ProcessWaitFor.java%20:%2050)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.Executors$RunnableAdapter.call%20(Executors.java%20:%20511)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.FutureTask.run%20(FutureTask.java%20:%20266)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor.runWorker%20(ThreadPoolExecutor.java%20:%201142)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor$Worker.run%20(ThreadPoolExecutor.java%20:%20617)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Thread.run%20(Thread.java%20:%20745)%3C/div%3E"></td>
-            </tr><tr class="odd gradeX">
-                <td>140</td>
-                <td>process reaper</td>
-                <td>RUNNABLE</td>
-                <td>0.00%</td>
-                <td>0.00%</td>
-                <td></td>
-                <td><input type="button" value="view" class="btn btn-default btn-sm btn-thread-view" data-toggle="modal" data-target="#threadModal" data-info="%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.UNIXProcess.waitForProcessExit%20(UNIXProcess.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.UNIXProcess.lambda$initStreams$3%20(UNIXProcess.java%20:%20289)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.UNIXProcess$Lambda$22/1100944156.run%20(%20:%20-1)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor.runWorker%20(ThreadPoolExecutor.java%20:%201142)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor$Worker.run%20(ThreadPoolExecutor.java%20:%20617)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Thread.run%20(Thread.java%20:%20745)%3C/div%3E"></td>
-            </tr><tr class="odd gradeX">
-                <td>132</td>
-                <td>Netty threadDeathWatcher-2-1</td>
-                <td>TIMED_WAITING</td>
-                <td>0.00%</td>
-                <td>0.02%</td>
-                <td></td>
-                <td><input type="button" value="view" class="btn btn-default btn-sm btn-thread-view" data-toggle="modal" data-target="#threadModal" data-info="%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Thread.sleep%20(Thread.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20io.netty.util.ThreadDeathWatcher$Watcher.run%20(ThreadDeathWatcher.java%20:%20150)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run%20(DefaultThreadFactory.java%20:%20144)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Thread.run%20(Thread.java%20:%20745)%3C/div%3E"></td>
-            </tr><tr class="odd gradeX">
-                <td>128</td>
-                <td>ApplicationImpl pooled thread 16</td>
-                <td>WAITING</td>
-                <td>0.00%</td>
-                <td>0.05%</td>
-                <td></td>
-                <td><input type="button" value="view" class="btn btn-default btn-sm btn-thread-view" data-toggle="modal" data-target="#threadModal" data-info="%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Object.wait%20(Object.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Object.wait%20(Object.java%20:%20502)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.zeroturnaround.jdi.event.JREventQueue.doRemove%20(JREventQueue.java%20:%20141)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.zeroturnaround.jdi.event.JREventQueue.removeFromOurQueue%20(JREventQueue.java%20:%20107)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.zeroturnaround.jdi.event.JREventQueue.remove%20(JREventQueue.java%20:%2074)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.intellij.debugger.engine.DebugProcessEvents$DebuggerEventThread.run%20(DebugProcessEvents.java%20:%20145)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.intellij.openapi.application.impl.ApplicationImpl$2.run%20(ApplicationImpl.java%20:%20309)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.Executors$RunnableAdapter.call%20(Executors.java%20:%20511)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.FutureTask.run%20(FutureTask.java%20:%20266)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor.runWorker%20(ThreadPoolExecutor.java%20:%201142)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor$Worker.run%20(ThreadPoolExecutor.java%20:%20617)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Thread.run%20(Thread.java%20:%20745)%3C/div%3E"></td>
-            </tr><tr class="odd gradeX">
-                <td>124</td>
-                <td>BaseDataReader: output stream of java</td>
-                <td>RUNNABLE</td>
-                <td>0.00%</td>
-                <td>0.00%</td>
-                <td></td>
-                <td><input type="button" value="view" class="btn btn-default btn-sm btn-thread-view" data-toggle="modal" data-target="#threadModal" data-info="%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.FileInputStream.readBytes%20(FileInputStream.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.FileInputStream.read%20(FileInputStream.java%20:%20255)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.BufferedInputStream.read1%20(BufferedInputStream.java%20:%20284)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.BufferedInputStream.read%20(BufferedInputStream.java%20:%20345)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.nio.cs.StreamDecoder.readBytes%20(StreamDecoder.java%20:%20284)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.nio.cs.StreamDecoder.implRead%20(StreamDecoder.java%20:%20326)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.nio.cs.StreamDecoder.read%20(StreamDecoder.java%20:%20178)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.InputStreamReader.read%20(InputStreamReader.java%20:%20184)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.Reader.read%20(Reader.java%20:%20140)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.intellij.util.io.BaseOutputReader.readAvailableBlocking%20(BaseOutputReader.java%20:%20137)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.intellij.util.io.BaseDataReader.readAvailable%20(BaseDataReader.java%20:%2082)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.intellij.util.io.BaseDataReader.doRun%20(BaseDataReader.java%20:%20160)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.intellij.util.io.BaseDataReader$1.run%20(BaseDataReader.java%20:%2061)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.Executors$RunnableAdapter.call%20(Executors.java%20:%20511)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.FutureTask.run%20(FutureTask.java%20:%20266)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor.runWorker%20(ThreadPoolExecutor.java%20:%201142)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor$Worker.run%20(ThreadPoolExecutor.java%20:%20617)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Thread.run%20(Thread.java%20:%20745)%3C/div%3E"></td>
-            </tr><tr class="odd gradeX">
-                <td>123</td>
-                <td>BaseDataReader: error stream of java</td>
-                <td>RUNNABLE</td>
-                <td>0.00%</td>
-                <td>0.01%</td>
-                <td></td>
-                <td><input type="button" value="view" class="btn btn-default btn-sm btn-thread-view" data-toggle="modal" data-target="#threadModal" data-info="%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.FileInputStream.readBytes%20(FileInputStream.java%20:%20-2%20:%20native)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.FileInputStream.read%20(FileInputStream.java%20:%20255)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.BufferedInputStream.read1%20(BufferedInputStream.java%20:%20284)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.BufferedInputStream.read%20(BufferedInputStream.java%20:%20345)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.nio.cs.StreamDecoder.readBytes%20(StreamDecoder.java%20:%20284)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.nio.cs.StreamDecoder.implRead%20(StreamDecoder.java%20:%20326)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20sun.nio.cs.StreamDecoder.read%20(StreamDecoder.java%20:%20178)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.InputStreamReader.read%20(InputStreamReader.java%20:%20184)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.io.Reader.read%20(Reader.java%20:%20140)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.intellij.util.io.BaseOutputReader.readAvailableBlocking%20(BaseOutputReader.java%20:%20137)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.intellij.util.io.BaseDataReader.readAvailable%20(BaseDataReader.java%20:%2082)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.intellij.util.io.BaseDataReader.doRun%20(BaseDataReader.java%20:%20160)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20com.intellij.util.io.BaseDataReader$1.run%20(BaseDataReader.java%20:%2061)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.Executors$RunnableAdapter.call%20(Executors.java%20:%20511)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.FutureTask.run%20(FutureTask.java%20:%20266)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor.runWorker%20(ThreadPoolExecutor.java%20:%201142)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.util.concurrent.ThreadPoolExecutor$Worker.run%20(ThreadPoolExecutor.java%20:%20617)%3C/div%3E%3Cdiv%20class=%22th-stack-line%22%3E%3Ci%20class=%22glyphicon%20glyphicon-minus%22%3E%3C/i%3E%20%20java.lang.Thread.run%20(Thread.java%20:%20745)%3C/div%3E"></td>
-            </tr></tbody>
+                                  <tr v-for="thread in threads">
+                                    <td>{{thread.tId}}</td>
+                                    <td>{{thread.name}}</td>
+                                    <td>{{thread.state}}</td>
+                                    <td>{{thread.cpu}}</td>
+                                    <td>{{thread.totalCpu}}</td>
+                                    <td>{{thread.blockedBy}}</td>
+                                    <td><button class="btn btn-default btn-xs" @click="changeStack(thread.stackTrack)" data-toggle="modal" data-target="#threadModal">View</button></td>
+                                </tr>
+                              </tbody>
                             </table>
                         </div>
-                        <!-- /.table-responsive -->
                     </div>
-                    <!-- /.panel-body -->
                 </div>
-                <!-- /.panel -->
             </div>
         </div>
-        <!-- /.row -->
     </div>
-    <!-- /#page-wrapper -->
-</div>
+    <div class="modal fade" id="threadModal" tabindex="-1" role="dialog" aria-labelledby="threadModalLabel" aria-hidden="true">
+        <input type="hidden" id="thread-id" />
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="thread-modal-title">
+                    Stack Trace
+                </h4>
+                </div>
+                <div class="thread-modal-body">
+                  <div v-for="stack in stackTrace" class="th-stack-line">
+                    <i class="glyphicon glyphicon-minus"></i>&nbsp;&nbsp;{{stack.className}}.{{stack.methodName}}({{stack.fileName}}: {{stack.nativeMethod ? 'native' : stack.lineNumber}})
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'Monitor',
+  computed: {
+    vmId () {
+      return this.$route.query.vmId
+    }
+  },
   data () {
-    return {}
+    return {
+      method: 'vm_thread_list',
+      countMethod: 'vm_thread_count',
+      listCount: 10,
+      timer: null,
+      threads: [],
+      threadCount: 0,
+      stackTrace: []
+    }
+  },
+  methods: {
+    changeStack (stack) {
+      this.stackTrace = []
+      for (var i = 0; i < stack.length; i++) {
+        console.log(stack[i].className)
+        this.stackTrace.push({
+          className: stack[i]['className'],
+          methodName: stack[i]['methodName'],
+          fileName: stack[i]['fileName'],
+          lineNumber: stack[i]['lineNumber'],
+          nativeMethod: stack[i]['nativeMethod']
+        })
+      }
+    },
+    updateData () {
+      this.$http.get(this.$url + this.method + '/' + this.vmId + '/' + this.listCount).then(m => {
+        if (m.status === 200) {
+          m = m.data
+          if (m.status === 'success') {
+            var arr = m.data
+            this.threads = []
+            for (var i = 0; i < arr.length; i++) {
+              this.threads.push({
+                tId: arr[i].TID,
+                name: arr[i].Name,
+                state: arr[i].State,
+                cpu: arr[i].CPU.toFixed(2) + '%',
+                totalCpu: arr[i].TotalCPU.toFixed(2) + '%',
+                blockedBy: arr[i].BlockedBy,
+                stackTrack: arr[i].Detail
+              })
+            }
+          } else {
+            console.log(m.message)
+          }
+        } else {
+          console.log('get thread list failed')
+        }
+      })
+      this.$http.get(this.$url + this.countMethod + '/' + this.vmId).then(m => {
+        if (m.status === 200) {
+          m = m.data
+          if (m.status === 'success') {
+            this.threadCount = m.data.ThreadCount
+          } else {
+            console.log(m.message)
+          }
+        } else {
+          console.log('get thread list failed')
+        }
+      })
+    }
+  },
+  mounted () {
+    this.updateData()
+    this.timer = setInterval(() => {
+      this.updateData()
+    }, 1000)
+  },
+  beforeRouteLeave (to, from, next) {
+    clearInterval(this.timer)
+    next()
   }
 }
 </script>
 
 <style scoped>
-.sp-fs {
-    border: 2px solid #bbb;
-    height: 100%;
+.th-stack-line {
+    white-space: nowrap;
+    margin-bottom: 8px;
 }
-.sp-fs legend {
-    font-size: 14px;
-    margin-bottom: 0px;
+.thread-modal-body {
+    overflow-y: scroll;
+    margin: 20px;
 }
 </style>

@@ -3,16 +3,16 @@
     <div class="row">
         <div class="col-lg-12 header-tabs">
             <h5 :class="['page-header', {active: tabCond.isBasic}]">
-              <router-link to="/panel/basic" data-id="basic-panel" @click.native="activeTab('isBasic')">概述</router-link>
+              <router-link :to="{path:'/panel/basic', query: {vmId: vmId}}" data-id="basic-panel" @click.native="activeTab('isBasic')">概述</router-link>
             </h5>&nbsp;|&nbsp;
             <h5 :class="['page-header', {active: tabCond.isMonitor}]">
-              <router-link to="/panel/monitor" data-id="monitor-panel" @click.native="activeTab('isMonitor')">监视</router-link>
+              <router-link :to="{path:'/panel/monitor', query: {vmId: vmId}}" data-id="monitor-panel" @click.native="activeTab('isMonitor')">监视</router-link>
             </h5>&nbsp;|&nbsp;
             <h5 :class="['page-header', {active: tabCond.isThread}]">
-              <router-link to="/panel/thread" data-id="thread-panel" @click.native="activeTab('isThread')">线程</router-link>
+              <router-link :to="{path:'/panel/thread', query: {vmId: vmId}}" data-id="thread-panel" @click.native="activeTab('isThread')">线程</router-link>
             </h5>&nbsp;|&nbsp;
             <h5 :class="['page-header', {active: tabCond.isSql}]">
-              <router-link to="/panel/sql" data-id="sql-panel" @click.native="activeTab('isSql')">SQL</router-link>
+              <router-link :to="{path:'/panel/sql', query: {vmId: vmId}}" data-id="sql-panel" @click.native="activeTab('isSql')">SQL</router-link>
             </h5>
         </div>
         <router-view></router-view>
@@ -33,6 +33,11 @@ export default {
       }
     }
   },
+  computed: {
+    vmId () {
+      return this.$route.query.vmId
+    }
+  },
   methods: {
     activeTab (val) {
       var keys = Object.keys(this.tabCond)
@@ -41,6 +46,9 @@ export default {
       }
       this.tabCond[val] = true
     }
+  },
+  updated () {
+    this.activeTab('isBasic')
   }
 }
 </script>
